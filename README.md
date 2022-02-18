@@ -47,7 +47,7 @@
 <a name="DBdesign"><h2>Проектирование базы данных</h2></a>
 <a name="PhysModel"><h3>Физическая модель</h3></a>
 
-<img src="https://github.com/1i10/ComicsLibrary/blob/master/DataBaseModel/DataBaseModel.png" title="Физическая модель базы данных для хранения информации о комиксах"/>  
+<img src="https://github.com/1i10/ComicBooksLibrary/blob/master/DataBaseModel/DataBaseModel.png" title="Физическая модель базы данных для хранения информации о комиксах"/>  
 
 <a name="EntityDB"><h3>Описание сущностей</h3></a>
 База данных включает в себя 4 таблицы: русскоязычное издание комикса (*Comic_book*), включаемое иностранное издание (*Included_comic_book*), автор (*Author*), включаемые номера комикса в иностранное издание (*Collecting_comic_numbers*).  
