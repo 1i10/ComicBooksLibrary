@@ -80,7 +80,75 @@ Last_name | Фамилия автора | Любой набор символов
 Name_collect_book | Наименование включаемого номера комикса в иностранное издание | Любой набор символов |
 
 <a name="AnalysisHtmlCode"><h2>Анализ кода страниц для автоматизированного сбора информации</h2></a>
+В роли источника для сбора информации о комиксах был выбран сайт [goodreads.com](https://www.goodreads.com/). И, поскольку, данный сайт сейчас имеет проблемы с отображением изображений, то для их парсинга будет использоваться сайт [comixology.com](https://www.comixology.com).  
+  
+Ниже будут представлены маски и теги кода страниц, которые содержат необходимую информацию.  
+  
+*1. Домен для перехода к странице комикса*  
+> ```
+> “https://www.goodreads.com/search?page=” + numberPage + “&q=” + newSearchLine + “&search_type=books”
+>
+> ```
+>, где: numberPage - номер страницы, newSearchLine - это преобразованная строка с наименованием для вставки в URL (все пробелы заменяются на символ ‘+’).  
+  
+*2. Поиск ссылок с описанием комикса*  
+```html
+<a class="bookTitle" itemprop="url" href="ссылка на комикс">
+```  
+  
+*3. Вытягивание информации о комиксе с найденной страницы*  
+* *Поиск имени и url изображения обложки комикса*  
+```html
+... <img id="coverImage" alt="Наименование комикса" src="ссылка на изображение обложки комикса" /></a>
+```  
+* *Поиск всех авторов комикса*  
+```html
+<a class="authorName" itemprop="url" href="ссылка на автора"><span itemprop="name">Имя автора</span></a> ...
+```  
+* *Поиск описания комикса*  
+```html
+<span id="freeText(некий числовой идентификатор)" style="display:none">Расширенное описание комикса</span>
+```  
+* *Поиск включаемых номеров*
+```html
+<a href="/series/часть ссылки">Номер какого-то комикса</a>
+```
+* *Поиск даты публикации*  
+```html
+<div class="row">
+    		 Информация о публикации
+     		</div>
+
+```
+
 <a name="AppStructure"><h2>Общая структура приложения</h2></a>
+Ниже будет представлена структура приложения с описаниями ее составляющих классов.  
+  
+*Описание структуры приложения*  
+**Пакет** | **Наименование класса** | **Описание** |
+:-------- | :---------------------- | :----------- |
+[Model](https://github.com/1i10/ComicBooksLibrary/tree/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/Model) | [Author](https://github.com/1i10/ComicBooksLibrary/blob/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/Model/Author.java) | Содержит модель таблицы «Автор» |
+[Model](https://github.com/1i10/ComicBooksLibrary/tree/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/Model) | [CollectingComicNumbers](https://github.com/1i10/ComicBooksLibrary/blob/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/Model/CollectingComicNumbers.java) | Содержит модель таблицы «Включаемые номера» |
+[Model](https://github.com/1i10/ComicBooksLibrary/tree/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/Model) | [ComicBook](https://github.com/1i10/ComicBooksLibrary/blob/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/Model/ComicBook.java) | Содержит модель таблицы «Русскоязычное издание комикса» |
+[Model](https://github.com/1i10/ComicBooksLibrary/tree/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/Model) | [IncludedComicBook](https://github.com/1i10/ComicBooksLibrary/blob/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/Model/IncludedComicBook.java) | Содержит модель таблицы «Включаемое иностранное издание» |
+[-](https://github.com/1i10/ComicBooksLibrary/tree/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary) | [MainActivity](https://github.com/1i10/ComicBooksLibrary/blob/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/MainActivity.java) | Основная активность, обеспечивающая переход по пунктам меню |
+[-](https://github.com/1i10/ComicBooksLibrary/tree/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary) | [ImageSaveAndLoad](https://github.com/1i10/ComicBooksLibrary/blob/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/ImageSaveAndLoad.java) | Класс для выполнения загрузки и сохранение изображений обложек в локальном хранилище устройства |
+[-](https://github.com/1i10/ComicBooksLibrary/tree/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary) | [StringConverter](https://github.com/1i10/ComicBooksLibrary/blob/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/StringConverter.java) | Вспомогательный класс для конвертирования списков авторов и включаемых номеров |
+[MenuFragments](https://github.com/1i10/ComicBooksLibrary/tree/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/MenuFragments) | [FirstFragment](https://github.com/1i10/ComicBooksLibrary/blob/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/MenuFragments/FirstFragment.java) | Фрагмент меню, содержащий сохраненный список комиксов |
+[MenuFragments](https://github.com/1i10/ComicBooksLibrary/tree/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/MenuFragments) | [SecondFragment](https://github.com/1i10/ComicBooksLibrary/blob/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/MenuFragments/SecondFragment.java) | Фрагмент меню, предназначенный для автоматизированного поиска иностранных комиксов |
+[MenuFragments](https://github.com/1i10/ComicBooksLibrary/tree/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/MenuFragments) | [ThirdFragment](https://github.com/1i10/ComicBooksLibrary/blob/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/MenuFragments/ThirdFragment.java) | Фрагмент, который содержит информацию об приложении |
+[ExpandableList](https://github.com/1i10/ComicBooksLibrary/tree/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/MenuFragments/ExpandableList) | [ExpandableListAdapter](https://github.com/1i10/ComicBooksLibrary/blob/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/MenuFragments/ExpandableList/ExpandableListAdapter.java) | Адаптер для отображения списка и его расширяющихся элементов |
+[ExpandableList](https://github.com/1i10/ComicBooksLibrary/tree/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/MenuFragments/ExpandableList) | [ModelItemView](https://github.com/1i10/ComicBooksLibrary/blob/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/MenuFragments/ExpandableList/ModelItemView.java) | Класс, содержащий данные для включаемого иностранного издания |
+[ExpandableList](https://github.com/1i10/ComicBooksLibrary/tree/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/MenuFragments/ExpandableList) | [UpdatePosition](https://github.com/1i10/ComicBooksLibrary/blob/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/MenuFragments/ExpandableList/UpdatePosition.java) | Активность, предназначенная для обновления текущей позиции |
+[ListActions](https://github.com/1i10/ComicBooksLibrary/tree/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/MenuFragments/ListActions) | [AddPosition](https://github.com/1i10/ComicBooksLibrary/blob/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/MenuFragments/ListActions/AddPosition.java) | Активность, предназначенная для ручного ввода информации о комиксе |
+[ListActions](https://github.com/1i10/ComicBooksLibrary/tree/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/MenuFragments/ListActions) | [CollectViewAdapter](https://github.com/1i10/ComicBooksLibrary/blob/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/MenuFragments/ListActions/CollectViewAdapter.java) | Адаптер для отображения списка включаемых иностранных изданий в активности AddPosition |
+[ListActions](https://github.com/1i10/ComicBooksLibrary/tree/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/MenuFragments/ListActions) | [ModelCollectView](https://github.com/1i10/ComicBooksLibrary/blob/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/MenuFragments/ListActions/ModelCollectView.java) | Модель для передачи иностранного издания в адаптер |
+[SearchMenu](https://github.com/1i10/ComicBooksLibrary/tree/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/MenuFragments/SearchMenu) | [SearchListAdapter](https://github.com/1i10/ComicBooksLibrary/blob/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/MenuFragments/SearchMenu/SearchListAdapter.java) | Адаптер для отображения найденных иностранных изданий через поиск для последующего добавления выбранных в список |
+[Jsoup](https://github.com/1i10/ComicBooksLibrary/tree/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/Jsoup) | [ParseBookInfo](https://github.com/1i10/ComicBooksLibrary/blob/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/Jsoup/ParseBookInfo.java) | Класс для автоматизированного сбора информации о всех комиксах по введенному названию в строке поиска |
+[DB](https://github.com/1i10/ComicBooksLibrary/tree/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/DB) | [DBHandler](https://github.com/1i10/ComicBooksLibrary/blob/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/DB/DBHandler.java) | Класс, который предоставляет работу с базой данный SQLite с созданием таблиц и запросами на добавление, редактирование, удаление, получение данных |
+[DB](https://github.com/1i10/ComicBooksLibrary/tree/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/DB) | [IncBookAddInDB](https://github.com/1i10/ComicBooksLibrary/blob/master/ComicsLibrary/app/src/main/java/com/app/comicslibrary/DB/IncBookAddInDB.java) | Вспомогательный класс для разбора ModelCollectView и добавления иностранного издания в базу данных | 
+
+
 <a name="AppInterface"><h2>Разработка интерфейса приложения</h2></a>
 <a name="AppStructure"><h2>Сборка и настройка</h2></a>
 <a name="Example"><h2>Пример</h2></a>
