@@ -76,9 +76,18 @@ public class ParseBookInfo {
 
         //GOODREADS.COM NOW HAVE PROBLEM WITH IMAGE. NEED LOAD IMAGE OTHER SITE
         //"www.comixology.com"
-
+        //comixology not worked too
         String urlImage = searchImageByNameInComixology(nameIncBook);
-        //Log.d("IMAGEPATH", urlImage);
+
+        ImageView image = new ImageView(context);
+        ImageSaveAndLoad setUrl = new ImageSaveAndLoad(context);
+        if(!urlImage.isEmpty()){
+            image.setImageBitmap(setUrl.getBitmapFromURL(urlImage));
+        }
+        else{
+            //set default image
+            image.setImageBitmap(setUrl.getBitmapFromURL("https://images.assetsdelivery.com/compings_v2/yehorlisnyi/yehorlisnyi2104/yehorlisnyi210400016.jpg"));
+        }
 
         //get authors
 
@@ -135,12 +144,6 @@ public class ParseBookInfo {
 
         }
 
-        ImageView image = new ImageView(context);
-        if(!urlImage.isEmpty()){
-            ImageSaveAndLoad setUrl = new ImageSaveAndLoad(context);
-            image.setImageBitmap(setUrl.getBitmapFromURL(urlImage));
-        }
-
         ModelCollectView incComicInfo = new ModelCollectView(image, nameIncBook, description, strAuthors,
                 strCollects, date);
 
@@ -148,7 +151,7 @@ public class ParseBookInfo {
     }
 
     public String searchImageByNameInComixology(String name) throws IOException{
-        String urlImage = null;
+        String urlImage = "";
 
         //replace all space in string line to '+'
         String newString = name.replace(' ', '+');
