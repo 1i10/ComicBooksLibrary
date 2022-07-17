@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/drawable/checkbox_selector.xml" value="0.146" />
+        <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/drawable/ic_baseline_add_box_24.xml" value="0.146" />
+        <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/drawable/ic_baseline_add_box_24_2.xml" value="0.146" />
+        <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/layout/activity_add_position.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/layout/custom_collecting_item_for_list_view.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/layout/fragment_second.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/layout/search_menu_item_for_list.xml" value="0.536" />
         <entry key="..\:/Users/renne/AndroidStudioProjects/ComicsLibrary/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2703125" />
         <entry key="..\:/Users/renne/AndroidStudioProjects/ComicsLibrary/app/src/main/res/drawable/ic_baseline_indeterminate_check_box_24.xml" value="0.11898148148148148" />
         <entry key="..\:/Users/renne/AndroidStudioProjects/ComicsLibrary/app/src/main/res/drawable/ic_list_background.xml" value="0.23703703703703705" />

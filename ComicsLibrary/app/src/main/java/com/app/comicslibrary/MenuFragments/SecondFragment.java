@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.StrictMode;
 import android.util.Log;
@@ -14,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -100,6 +103,7 @@ public class SecondFragment extends Fragment {
 
                         searchArrayAdapter = new SearchListAdapter(container.getContext(), listParseComics);
 
+
                         searchList.setAdapter(searchArrayAdapter);
                     }
                 }catch(IOException e){
@@ -121,18 +125,22 @@ public class SecondFragment extends Fragment {
                 int itemsCount = searchList.getCount();
                 Log.d("ITEMSCOUNT", itemsCount +"");
 
+                /*переписать это для распознавания позиций, которые нужно добавить
                 for (int i = 0; i < itemsCount; i++) {
                     View itemView = searchArrayAdapter.getView(i, null, searchList);
-                    ImageButton selectPos = (ImageButton)itemView.findViewById(R.id.imageButtonAddList);
+                    ImageButton selectPos = (ImageButton)itemView.findViewById(R.id.checkBoxAddList);
 
                     if(selectPos.getBackground().getConstantState() == getResources().getDrawable(R.drawable.ic_baseline_add_box_24).getConstantState()){
                         Log.d("DRAWABLEITEM", selectPos.getBackground().getConstantState() + " " + i);
                     }
                 }
+                 */
 
             }
         });
 
         return view;
     }
+
+
 }

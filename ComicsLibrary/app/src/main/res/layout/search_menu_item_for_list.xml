@@ -110,12 +110,11 @@
 
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/imageButtonAddList"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/ic_baseline_add_box_24_2"
-            android:baselineAlignBottom="false"
-            tools:ignore="SpeakableTextPresentCheck" />
+        <CheckBox
+            android:id="@+id/checkBoxAddList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/checkbox_selector"
+            android:button="@null" />
     </LinearLayout>
 </LinearLayout>
