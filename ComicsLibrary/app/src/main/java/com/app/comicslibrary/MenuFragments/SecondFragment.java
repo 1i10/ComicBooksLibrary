@@ -1,6 +1,8 @@
 package com.app.comicslibrary.MenuFragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -24,10 +26,12 @@ import android.widget.Toast;
 
 import com.app.comicslibrary.Jsoup.ParseBookInfo;
 
+import com.app.comicslibrary.MenuFragments.ListActions.AddPosition;
 import com.app.comicslibrary.MenuFragments.ListActions.ModelCollectView;
 import com.app.comicslibrary.MenuFragments.SearchMenu.SearchListAdapter;
 import com.app.comicslibrary.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -122,19 +126,24 @@ public class SecondFragment extends Fragment {
                     return;
                 }
 
-                int itemsCount = searchList.getCount();
-                Log.d("ITEMSCOUNT", itemsCount +"");
+                boolean []statusItems = searchArrayAdapter.getChecked();
 
-                /*переписать это для распознавания позиций, которые нужно добавить
-                for (int i = 0; i < itemsCount; i++) {
-                    View itemView = searchArrayAdapter.getView(i, null, searchList);
-                    ImageButton selectPos = (ImageButton)itemView.findViewById(R.id.checkBoxAddList);
+                Intent intent = new Intent(getActivity(), AddPosition.class);
+                for (int i = 0; i < statusItems.length; i++) {
+                    if(statusItems[i]){
+                        ModelCollectView selectedItem = listParseComics.get(i);
 
-                    if(selectPos.getBackground().getConstantState() == getResources().getDrawable(R.drawable.ic_baseline_add_box_24).getConstantState()){
-                        Log.d("DRAWABLEITEM", selectPos.getBackground().getConstantState() + " " + i);
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        selectedItem.getImage().compress(Bitmap.CompressFormat.PNG, 100, stream);
+                        byte[] bytes = stream.toByteArray();
+
+                        intent.putExtra("bytesImages" + i, bytes);
+                        selectedItem.setImage(null);
+                        selectedComics.add(selectedItem);
                     }
                 }
-                 */
+                intent.putParcelableArrayListExtra("selectedItemsInSearch", selectedComics);
+                startActivity(intent);
 
             }
         });

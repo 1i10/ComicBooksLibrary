@@ -85,17 +85,15 @@ public class UpdatePosition extends AppCompatActivity {
             for(ModelItemView child : listChild){
                 IncludedComicBook incBook = child.getIncBook();
 
-                ImageView sendImage = new ImageView(this);
                 ImageSaveAndLoad loadImage = new ImageSaveAndLoad(UpdatePosition.this);
                 String imagePath = incBook.getPathImage();
                 Bitmap bmpImage = loadImage.loadImageFromStorage(imagePath, incBook.getIdIncBook());
-                sendImage.setImageBitmap(bmpImage);
 
                 StringConverter convert = new StringConverter();
                 String strAuthors = convert.convertListOfAuthorsToString(child.getAuthors());
                 String strCollects = convert.convertListOfCollectsToString(child.getCollects());
 
-                arrayList.add(new ModelCollectView(sendImage,incBook.getNameIncBook(),
+                arrayList.add(new ModelCollectView(bmpImage,incBook.getNameIncBook(),
                         incBook.getDescription(),strAuthors,
                         strCollects, incBook.getPublishedDate()));
             }
@@ -166,7 +164,7 @@ public class UpdatePosition extends AppCompatActivity {
                     ImageSaveAndLoad delUpImage = new ImageSaveAndLoad(getApplicationContext());
                     if(delUpImage.deleteImageInStorage(idIncBook) == true) {//image was found
                         //save new image
-                        Bitmap bmpImage = ((BitmapDrawable)collect.getImage().getDrawable()).getBitmap();
+                        Bitmap bmpImage = collect.getImage();
 
                         String pathImage = delUpImage.saveToInternalStorage(delUpImage.resizeImage(bmpImage), idIncBook);
                         upIncBook.setPathImage(pathImage);
@@ -271,7 +269,10 @@ public class UpdatePosition extends AppCompatActivity {
                         TextView textAuthors = dialog.findViewById(R.id.editAuthors);
                         TextView textCollectNum = dialog.findViewById(R.id.editCollectingNumbers);
 
-                        arrayList.add(new ModelCollectView(imageLoad,collectName,
+                        BitmapDrawable drawable = (BitmapDrawable) imageLoad.getDrawable();
+                        Bitmap bitmapImage = drawable.getBitmap();
+
+                        arrayList.add(new ModelCollectView(bitmapImage,collectName,
                                 textDescription.getText().toString(),textAuthors.getText().toString(),
                                 textCollectNum.getText().toString(), eTextDate.getText().toString()));
 

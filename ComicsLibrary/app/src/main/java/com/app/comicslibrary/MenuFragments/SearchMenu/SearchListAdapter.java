@@ -72,7 +72,7 @@ public class SearchListAdapter extends ArrayAdapter<ModelCollectView>  {
         textViewName.setText(currentPosition.getName());
         //image
         ImageView imageView = currentItemView.findViewById(R.id.imageView);
-        imageView.setImageDrawable(currentPosition.getImage().getDrawable());
+        imageView.setImageBitmap(currentPosition.getImage());
 
         //description
         TextView textViewDescription = currentItemView.findViewById(R.id.textViewDescription);

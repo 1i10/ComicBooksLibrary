@@ -9,6 +9,8 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -79,7 +81,7 @@ public class CollectViewAdapter extends ArrayAdapter<ModelCollectView> implement
         textViewName.setText(currentPosition.getName());
         //image
         ImageView imageView = currentItemView.findViewById(R.id.imageView);
-        imageView.setImageDrawable(currentPosition.getImage().getDrawable());
+        imageView.setImageBitmap(currentPosition.getImage());
 
         //description
         TextView textViewDescription = currentItemView.findViewById(R.id.textViewDescription);
@@ -140,7 +142,9 @@ public class CollectViewAdapter extends ArrayAdapter<ModelCollectView> implement
                     @Override
                     public void onClick(View v){
                         list.remove(position);
-                        list.add(position, new ModelCollectView(imageLoad,textName.getText().toString(),
+                        BitmapDrawable drawable = (BitmapDrawable) imageLoad.getDrawable();
+                        Bitmap bitmapImage = drawable.getBitmap();
+                        list.add(position, new ModelCollectView(bitmapImage,textName.getText().toString(),
                                 textDescription.getText().toString(),textAuthors.getText().toString(),
                                 textCollectNum.getText().toString(), eTextDate.getText().toString()));
 
@@ -154,7 +158,7 @@ public class CollectViewAdapter extends ArrayAdapter<ModelCollectView> implement
                 //load image
                 Button buttonLoadImage = dialog.findViewById(R.id.buttonLoadPicture);
                 imageLoad = dialog.findViewById(R.id.imageView);
-                imageLoad.setImageDrawable(currentPosition.getImage().getDrawable());
+                imageLoad.setImageBitmap(currentPosition.getImage());
 
                 buttonLoadImage.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -1,6 +1,7 @@
 package com.app.comicslibrary.Jsoup;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -79,14 +80,14 @@ public class ParseBookInfo {
         //comixology not worked too
         String urlImage = searchImageByNameInComixology(nameIncBook);
 
-        ImageView image = new ImageView(context);
+        Bitmap image;
         ImageSaveAndLoad setUrl = new ImageSaveAndLoad(context);
         if(!urlImage.isEmpty()){
-            image.setImageBitmap(setUrl.getBitmapFromURL(urlImage));
+            image = setUrl.getBitmapFromURL(urlImage);
         }
         else{
             //set default image
-            image.setImageBitmap(setUrl.getBitmapFromURL("https://images.assetsdelivery.com/compings_v2/yehorlisnyi/yehorlisnyi2104/yehorlisnyi210400016.jpg"));
+            image = setUrl.getBitmapFromURL("https://images.assetsdelivery.com/compings_v2/yehorlisnyi/yehorlisnyi2104/yehorlisnyi210400016.jpg");
         }
 
         //get authors

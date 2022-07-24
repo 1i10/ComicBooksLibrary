@@ -7,8 +7,12 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.text.InputType;
 import android.util.Log;
@@ -62,6 +66,27 @@ public class AddPosition extends AppCompatActivity {
         TextView textComicName = findViewById(R.id.editName);
         TextView textPrice = findViewById(R.id.editTextNumber);
         Spinner spinStatus = findViewById(R.id.spinner);
+
+        //for search menu adding dialog window
+        arrayList = getIntent().getParcelableArrayListExtra("selectedItemsInSearch");
+        if (arrayList != null) {
+            //get images
+            for(int i = 0; i < arrayList.size(); i++){
+                byte[] bytes = getIntent().getByteArrayExtra("bytesImages"+i);
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+                ModelCollectView currentItem = arrayList.get(i);
+                currentItem.setImage(bmp);
+                arrayList.set(i, currentItem);
+            }
+
+            CollectViewAdapter numbersArrayAdapter = new CollectViewAdapter(AddPosition.this, arrayList);
+            mIntentListener = numbersArrayAdapter;
+
+            ListView numbersListView = findViewById(R.id.listViewCollecting);
+
+            numbersListView.setAdapter(numbersArrayAdapter);
+        }
 
         //save all
         buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -137,7 +162,10 @@ public class AddPosition extends AppCompatActivity {
                       TextView textAuthors = dialog.findViewById(R.id.editAuthors);
                       TextView textCollectNum = dialog.findViewById(R.id.editCollectingNumbers);
 
-                      arrayList.add(new ModelCollectView(imageLoad,collectName,
+                      BitmapDrawable drawable = (BitmapDrawable) imageLoad.getDrawable();
+                      Bitmap bitmapImage = drawable.getBitmap();
+
+                      arrayList.add(new ModelCollectView(bitmapImage,collectName,
                               textDescription.getText().toString(),textAuthors.getText().toString(),
                               textCollectNum.getText().toString(), eTextDate.getText().toString()));
 

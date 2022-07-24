@@ -42,7 +42,7 @@ public class IncBookAddInDB {
         //and now need set path for image
         //store and save image path
         ImageSaveAndLoad saveImage = new ImageSaveAndLoad(context);
-        Bitmap bmpImage = ((BitmapDrawable)collect.getImage().getDrawable()).getBitmap();
+        Bitmap bmpImage = collect.getImage();
 
         String pathImage = saveImage.saveToInternalStorage(saveImage.resizeImage(bmpImage), rowIndexIncComicBook);
         addIncBook.setPathImage(pathImage);
