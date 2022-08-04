@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".MenuFragments.ListActions.AddPosition">
 
         <EditText
@@ -57,7 +57,7 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="27dp"
+            android:layout_marginStart="25dp"
             android:layout_marginTop="24dp"
             android:text="Включает комиксы:"
             android:textColor="@color/grey"
@@ -68,7 +68,7 @@
             android:id="@+id/buttonAdd"
             android:layout_width="54dp"
             android:layout_height="38dp"
-            android:layout_marginStart="34dp"
+            android:layout_marginStart="26dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="164dp"
             app:backgroundTint="@color/gold"
@@ -77,42 +77,41 @@
             app:layout_constraintStart_toEndOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/listViewCollectingScroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttonAdd">
 
             <ListView
                 android:id="@+id/listViewCollecting"
                 android:layout_width="match_parent"
-                android:layout_height="0dip"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_weight="1"
+                android:layout_marginEnd="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buttonAdd"
-                app:layout_constraintVertical_bias="1.0"
-                tools:ignore="TouchTargetSizeCheck">
+                tools:ignore="TouchTargetSizeCheck" />
+        </RelativeLayout>
 
-            </ListView>
-
-            <Button
-                android:id="@+id/buttonSave"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:padding="20dp"
-                android:text="Сохранить"
-                android:textSize="10dp"
-                app:backgroundTint="@color/gold" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="145dp"
+            android:layout_marginEnd="160dp"
+            android:padding="20dp"
+            android:text="Сохранить"
+            android:textSize="10dp"
+            app:backgroundTint="@color/gold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/listViewCollectingScroll" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

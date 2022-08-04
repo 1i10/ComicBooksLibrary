@@ -68,8 +68,8 @@ public class AddPosition extends AppCompatActivity {
         Spinner spinStatus = findViewById(R.id.spinner);
 
         //for search menu adding dialog window
-        arrayList = getIntent().getParcelableArrayListExtra("selectedItemsInSearch");
-        if (arrayList != null) {
+        if (getIntent().getParcelableArrayListExtra("selectedItemsInSearch") != null) {
+            arrayList = getIntent().getParcelableArrayListExtra("selectedItemsInSearch");
             //get images
             for(int i = 0; i < arrayList.size(); i++){
                 byte[] bytes = getIntent().getByteArrayExtra("bytesImages"+i);

@@ -6,10 +6,16 @@
         <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/drawable/checkbox_selector.xml" value="0.146" />
         <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/drawable/ic_baseline_add_box_24.xml" value="0.146" />
         <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/drawable/ic_baseline_add_box_24_2.xml" value="0.146" />
-        <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/layout/activity_add_position.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/layout/activity_add_position.xml" value="0.2" />
+        <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/layout/activity_main.xml" value="0.16458333333333333" />
+        <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/layout/alert_dialog_add_include_comic_book.xml" value="0.264" />
+        <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/layout/check_ur_connection.xml" value="0.16458333333333333" />
         <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/layout/custom_collecting_item_for_list_view.xml" value="0.25416666666666665" />
-        <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/layout/fragment_second.xml" value="0.25416666666666665" />
-        <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/layout/search_menu_item_for_list.xml" value="0.536" />
+        <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/layout/custom_collecting_parent_for_list_view.xml" value="0.4" />
+        <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/layout/fragment_first.xml" value="0.16458333333333333" />
+        <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/layout/fragment_second.xml" value="0.25" />
+        <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/layout/fragment_third.xml" value="0.16458333333333333" />
+        <entry key="..\:/Projects/git/ComicLibrary/ComicsLibrary/app/src/main/res/layout/search_menu_item_for_list.xml" value="0.4" />
         <entry key="..\:/Users/renne/AndroidStudioProjects/ComicsLibrary/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2703125" />
         <entry key="..\:/Users/renne/AndroidStudioProjects/ComicsLibrary/app/src/main/res/drawable/ic_baseline_indeterminate_check_box_24.xml" value="0.11898148148148148" />
         <entry key="..\:/Users/renne/AndroidStudioProjects/ComicsLibrary/app/src/main/res/drawable/ic_list_background.xml" value="0.23703703703703705" />
@@ -40,5 +46,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.536" />
+      </ProjectState>
+    </option>
   </component>
 </project>

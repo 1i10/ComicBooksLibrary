@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
@@ -16,18 +16,24 @@
             android:id="@+id/imageView"
             android:layout_width="102dp"
             android:layout_height="wrap_content"
-            android:padding="5dp" />
+            android:layout_gravity=""
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
+            android:id="@+id/bookInformation"
             android:layout_width="209dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/textViewName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:padding="2dp"
                 android:text="Название"
@@ -39,7 +45,7 @@
                 android:id="@+id/textViewDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:background="@null"
                 android:ems="18"
                 android:text="Описание"
@@ -49,7 +55,7 @@
                 android:id="@+id/textViewCollectLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:background="@null"
                 android:ems="10"
                 android:text="Включает:"
@@ -60,7 +66,7 @@
                 android:id="@+id/textViewCollect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:background="@null"
                 android:ems="10"
                 android:text="В коллекции"
@@ -70,7 +76,7 @@
                 android:id="@+id/textViewAuthorsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:background="@null"
                 android:ems="10"
                 android:text="Авторы:"
@@ -81,7 +87,7 @@
                 android:id="@+id/textViewAuthors"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:background="@null"
                 android:ems="10"
                 android:text="Авторы"
@@ -91,7 +97,7 @@
                 android:id="@+id/textViewDateLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:background="@null"
                 android:ems="10"
                 android:text="Дата публикации:"
@@ -102,7 +108,7 @@
                 android:id="@+id/textViewDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:background="@null"
                 android:ems="10"
                 android:text="Дата публикации"
@@ -114,7 +120,10 @@
             android:id="@+id/checkBoxAddList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
             android:background="@drawable/checkbox_selector"
-            android:button="@null" />
-    </LinearLayout>
+            android:button="@null"
+            app:layout_constraintStart_toEndOf="@+id/bookInformation"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
