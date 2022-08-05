@@ -2,8 +2,11 @@ package com.app.comicslibrary.Jsoup;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.util.Log;
 import android.widget.ImageView;
+
+import androidx.annotation.RequiresApi;
 
 import com.app.comicslibrary.ImageSaveAndLoad;
 
@@ -19,6 +22,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class ParseBookInfo {
@@ -28,6 +32,7 @@ public class ParseBookInfo {
         this.context = context;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public ArrayList<ModelCollectView> searchComicsInfo(String searchLine, int numberPage) throws IOException {
 
         //replace all space in string line to '+'
@@ -43,17 +48,22 @@ public class ParseBookInfo {
         ArrayList<ModelCollectView> listComics = new ArrayList<>();
 
         //if search page is not empty, get all links comics pages
-        if (doc.getElementsByClass("searchSubNavContainer").text() != "No results."){
+        if (!Objects.equals(doc.getElementsByClass("searchSubNavContainer").text(), "No results.")){
             Elements links = doc.select("a.bookTitle");
 
-            for(Element link : links){
+            links.parallelStream().forEach(link -> {
                 String linkHref = "https://www.goodreads.com" + link.attr("href");
                 //Log.d("href", linkHref);
-                ModelCollectView info = parsingComicsInfoFromLinkPage(linkHref);
+                ModelCollectView info = null;
+                try {
+                    info = parsingComicsInfoFromLinkPage(linkHref);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 if(info != null){
                     listComics.add(info);
                 }
-            }
+            });
         }
 
         return listComics;

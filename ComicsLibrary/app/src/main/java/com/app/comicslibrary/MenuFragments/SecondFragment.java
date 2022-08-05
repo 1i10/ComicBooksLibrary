@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.StrictMode;
 import android.util.Log;
@@ -17,15 +19,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.app.comicslibrary.Jsoup.ParseBookInfo;
 
+import com.app.comicslibrary.MainActivity;
 import com.app.comicslibrary.MenuFragments.ListActions.AddPosition;
 import com.app.comicslibrary.MenuFragments.ListActions.ModelCollectView;
 import com.app.comicslibrary.MenuFragments.SearchMenu.SearchListAdapter;
@@ -41,6 +42,8 @@ public class SecondFragment extends Fragment {
     ArrayList<ModelCollectView> listParseComics;
     ArrayList<ModelCollectView> selectedComics;
     SearchListAdapter searchArrayAdapter;
+    private ProgressBar loadingBar;
+    private Context context;
 
     public SecondFragment(){
         // require a empty public constructor
@@ -80,11 +83,13 @@ public class SecondFragment extends Fragment {
         Button searchButton = (Button) view.findViewById(R.id.searchButton);
         ListView searchList = (ListView) view.findViewById(R.id.listViewSearch);
         Button saveSearchButton = (Button) view.findViewById(R.id.buttonSaveSearch);
+        loadingBar = (ProgressBar)view.findViewById(R.id.loadingProgressBar);
 
         listParseComics = new ArrayList<>();
 
         //search and display result list
         searchButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void  onClick(View v){
                 String textSearch = searchLine.getText().toString();
@@ -94,24 +99,34 @@ public class SecondFragment extends Fragment {
                     return;
                 }
 
+                loadingBar.setVisibility(View.VISIBLE);
+
                 ParseBookInfo getInfo = new ParseBookInfo(getContext());
-                try{
-                    int SDK_INT = android.os.Build.VERSION.SDK_INT;
-                    if (SDK_INT > 8)
-                    {
-                        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                                .permitAll().build();
-                        StrictMode.setThreadPolicy(policy);
+                int SDK_INT = android.os.Build.VERSION.SDK_INT;
+                if (SDK_INT > 8)
+                {
+                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                            .permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
 
-                        listParseComics = getInfo.searchComicsInfo(textSearch, 1);//change numberpage later
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                listParseComics = getInfo.searchComicsInfo(textSearch, 1);//change numberpage later
+                            } catch (IOException e) {
+                                Log.d("PARSEERROR", "Search comics is fail");
+                            }
+                            ((MainActivity)context).runOnUiThread(new Runnable() {
+                                public void run() {
+                                    loadingBar.setVisibility(View.GONE);
+                                    searchArrayAdapter = new SearchListAdapter(container.getContext(), listParseComics);
+                                    searchList.setAdapter(searchArrayAdapter);
+                                }
+                            });
 
-                        searchArrayAdapter = new SearchListAdapter(container.getContext(), listParseComics);
-
-
-                        searchList.setAdapter(searchArrayAdapter);
-                    }
-                }catch(IOException e){
-                    Log.d("PARSEERROR", "Search comics is fail");
+                        }
+                    }).start();
                 }
             }
         });
@@ -151,5 +166,9 @@ public class SecondFragment extends Fragment {
         return view;
     }
 
-
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 }

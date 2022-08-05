@@ -87,7 +87,6 @@ public class SearchListAdapter extends ArrayAdapter<ModelCollectView>  {
         TextView textViewDate = currentItemView.findViewById(R.id.textViewDate);
         textViewDate.setText(currentPosition.getDate());
 
-        Log.d("PARSEERROR33333333", "Search comics is fail");
         // then return the recyclable view
         return currentItemView;
     }
